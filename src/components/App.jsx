@@ -1,45 +1,28 @@
 import { Component } from 'react';
+import { Statistics } from './Statistics/Statistics';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 
-let option='good';
-
-export class App extends Component { 
-   
-  
+export class App extends Component {
   state = {
     good: 0,
     neutral: 0,
-    bad: 0,    
+    bad: 0,
   };
 
-  handleClick = () => {
-    this.setState((prevState) => {      
+  handleClick = option => {
+    this.setState(prevState => {
       return {
         [option]: prevState[option] + 1,
       };
-  });
+    });
   };
 
-
-  // handleClickGood = () => {
-  //   this.setState(prevState => {
-  //     return { good: (prevState.good += 1) };
-  //   });
-  // };
-
-  handleClickNeutral = () => {
-    this.setState(prevState => {
-      return { neutral: (prevState.neutral += 1) };
-    });
+  countTotalFeedback() {
+    return this.state.good + this.state.bad + this.state.neutral;
   }
 
-  handleClickBad = () => {
-    this.setState(prevState => {
-      return { bad: (prevState.bad += 1) };
-    });
-  }
-
-  countTotalFeedback(){
-    return
+  countPositiveFeedbackPercentage() {
+    return ((this.state.good / this.countTotalFeedback()) * 100).toFixed(0);
   }
 
   render() {
@@ -55,33 +38,31 @@ export class App extends Component {
         }}
       >
         <h2>Please leave feedback</h2>
-        <ul>
+        {/* <ul>
           <li>
-            <button type="button" onClick={this.handleClick} option='good'>
+            <button type="button" onClick={() => this.handleClick('good')}>
               Good
             </button>
           </li>
           <li>
-            <button type="button" onClick={this.handleClickNeutral}>
+            <button type="button" onClick={() => this.handleClick('neutral')}>
               Neutral
             </button>
           </li>
           <li>
-            <button type="button" onClick={this.handleClickBad}>
+            <button type="button" onClick={() => this.handleClick('bad')}>
               Bad
             </button>
           </li>
-        </ul>
-        <h2>Statistics</h2>
-        <ul>
-          <li>Good:{this.state.good}</li>
-          <li>Neutral:{this.state.neutral}</li>
-          <li>Bad:{this.state.bad}</li>
-        </ul>
+        </ul> */}
+        <FeedbackOptions options={['good', 'neutral', 'bad']} onLeaveFeedback={this.handleClick}/>
+        <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={this.countTotalFeedback()} positivePercentage={this.countPositiveFeedbackPercentage()}/>
       </div>
     );
   }
 }
+
+// console.log(App.countPositiveFeedbackPercentage());
 
 // const state = {
 //   good: 0,
