@@ -1,9 +1,15 @@
+import css from './FeedbackOptions.module.css';
+
 export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
-    <ul>
+    <ul className={css.buttonsList}>
       {options.map((option, idx) => (
-        <li key={idx}>
-          <button type="button" onClick={()=>onLeaveFeedback(option)}>
+        <li className={css.buttonItem} key={idx}>
+          <button
+            className={css.button}
+            type="button"
+            onClick={() => onLeaveFeedback(option)}
+          >
             {option}
           </button>
         </li>
@@ -11,23 +17,3 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
     </ul>
   );
 };
-
-//   <ul>
-//     options.map((option, idx)=>())
-//     <li>
-//       <button type="button" onClick={() => this.handleClick('good')}>
-//         Good
-//       </button>
-//     </li>
-//     <li>
-//       <button type="button" onClick={() => this.handleClick('neutral')}>
-//         Neutral
-//       </button>
-//     </li>
-//     <li>
-//       <button type="button" onClick={() => this.handleClick('bad')}>
-//         Bad
-//       </button>
-//     </li>
-//   </ul>
-// </div>
